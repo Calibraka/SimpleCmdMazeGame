@@ -234,9 +234,9 @@ void consoleClear() {
 
 void displayMaze(int** maze, int length, int width, int gc) {
 	consoleClear();
-	for (int i = 0; i < width; i++)
+	for (int i = 0; i < length; i++)
 	{
-		for (int j = 0; j < length; j++)
+		for (int j = 0; j < width; j++)
 		{
 			if (maze[i][j] == 0)
 				cout << "[" << "-" << "]";
@@ -275,7 +275,7 @@ void playerMovement(int** maze, int length, int width) {
 	vector<vector<int>> pmov;
 	int posY = 0, posX = 0, gc = 0;
 	pmov.push_back({ posX, posY });
-	displayMaze(maze, width, length, gc);
+	displayMaze(maze, length, width, gc);
 	string smov;
 	int movement;
 	while (1) {
