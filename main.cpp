@@ -234,9 +234,9 @@ void consoleClear() {
 
 void displayMaze(int** maze, int length, int width, int gc) {
 	consoleClear();
-	for (int i = 0; i < length; i++)
+	for (int i = 0; i < width; i++)
 	{
-		for (int j = 0; j < width; j++)
+		for (int j = 0; j < length; j++)
 		{
 			if (maze[i][j] == 0)
 				cout << "[" << "-" << "]";
@@ -289,22 +289,28 @@ void playerMovement(int** maze, int length, int width) {
 				if (maze[posY - 1][posX] == 1) {
 					continue;
 				}
-				if (maze[posY - 1][posX] == 2) {
-					playerMovement(maze, length, width);
+				else if (maze[posY - 1][posX] == 2) {
+					maze[posY - 1][posX] = 0;
+					maze[0][0] = PLAYER;
+					posY = 0, posX = 0;
 				}
-				if (maze[posY - 1][posX] == 3) {
+				else if (maze[posY - 1][posX] == 3) {
+					maze[posY - 1][posX] = PLAYER;
+					posY--;
+					pmov.push_back({ posX, posY });
 					gc++;
 				}
-				if (maze[posY - 1][posX] == 5) {
+				else if (maze[posY - 1][posX] == 5) {
 					printFile(pmov);
 					consoleClear();
 					cout << "You win!" << endl;
-					_getch();
 					break;
 				}
-				maze[posY - 1][posX] = PLAYER;
-				posY--;
-				pmov.push_back({ posX, posY });
+				else if (maze[posY - 1][posX] == 0) {
+					maze[posY - 1][posX] = PLAYER;
+					posY--;
+					pmov.push_back({ posX, posY });
+				}
 				displayMaze(maze, length, width, gc);
 
 
@@ -317,22 +323,28 @@ void playerMovement(int** maze, int length, int width) {
 				if (maze[posY][posX - 1] == 1) {
 					continue;
 				}
-				if (maze[posY][posX - 1] == 2) {
-					playerMovement(maze, length, width);
+				else if (maze[posY][posX - 1] == 2) {
+					maze[posY][posX - 1] = 0;
+					maze[0][0] = PLAYER;
+					posY = 0, posX = 0;
 				}
-				if (maze[posY][posX - 1] == 3) {
+				else if (maze[posY][posX - 1] == 3) {
+					maze[posY][posX - 1] = PLAYER;
+					posX--;
+					pmov.push_back({ posX, posY });
 					gc++;
 				}
-				if (maze[posY][posX - 1] == 5) {
+				else if (maze[posY][posX - 1] == 5) {
 					printFile(pmov);
 					consoleClear();
 					cout << "You win!" << endl;
-					_getch();
 					break;
 				}
-				maze[posY][posX - 1] = PLAYER;
-				posX--;
-				pmov.push_back({ posX, posY });
+				else if (maze[posY][posX - 1] == 0) {
+					maze[posY][posX - 1] = PLAYER;
+					posX--;
+					pmov.push_back({ posX, posY });
+				}
 				displayMaze(maze, length, width, gc);
 
 			}
@@ -344,22 +356,28 @@ void playerMovement(int** maze, int length, int width) {
 				if (maze[posY][posX + 1] == 1) {
 					continue;
 				}
-				if (maze[posY][posX + 1] == 2) {
-					playerMovement(maze, length, width);
+				else if (maze[posY][posX + 1] == 2) {
+					maze[posY][posX + 1] = 0;
+					maze[0][0] = PLAYER;
+					posY = 0, posX = 0;
 				}
-				if (maze[posY][posX + 1] == 3) {
+				else if (maze[posY][posX + 1] == 3) {
+					maze[posY][posX + 1] = PLAYER;
+					posX++;
+					pmov.push_back({ posX, posY });
 					gc++;
 				}
-				if (maze[posY][posX + 1] == 5) {
+				else if (maze[posY][posX + 1] == 5) {
 					printFile(pmov);
 					consoleClear();
 					cout << "You win!" << endl;
-					_getch();
 					break;
 				}
-				maze[posY][posX + 1] = PLAYER;
-				posX++;
-				pmov.push_back({ posX, posY });
+				else if (maze[posY][posX + 1] == 0) {
+					maze[posY][posX + 1] = PLAYER;
+					posX++;
+					pmov.push_back({ posX, posY });
+				}
 				displayMaze(maze, length, width, gc);
 			}
 			else continue;
@@ -370,24 +388,29 @@ void playerMovement(int** maze, int length, int width) {
 				if (maze[posY + 1][posX] == 1) {
 					continue;
 				}
-				if (maze[posY + 1][posX] == 2) {
-					playerMovement(maze, length, width);
+				else if (maze[posY + 1][posX] == 2) {
+					maze[posY + 1][posX] = 0;
+					maze[0][0] = PLAYER;
+					posY = 0, posX = 0;
 				}
-				if (maze[posY + 1][posX] == 3) {
+				else if (maze[posY + 1][posX] == 3) {
+					maze[posY + 1][posX] = PLAYER;
+					posY++;
+					pmov.push_back({ posX, posY });
 					gc++;
 				}
-				if (maze[posY + 1][posX] == 5) {
+				else if (maze[posY + 1][posX] == 0) {
+					maze[posY + 1][posX] = PLAYER;
+					posY++;
+					pmov.push_back({ posX, posY });
+				}
+				else if(maze[posY + 1][posX] == 5) {
 					printFile(pmov);
 					consoleClear();
 					cout << "You win!" << endl;
-					_getch();
 					break;
-				}
-				maze[posY + 1][posX] = PLAYER;
-				posY++;
-				pmov.push_back({ posX, posY });
+				}		
 				displayMaze(maze, length, width, gc);
-
 			}
 			else continue;
 		}
@@ -407,4 +430,5 @@ int main() {
 	addGold(maze, length, width);
 	addMonster(maze, length, width);
 	playerMovement(maze, length, width);
+
 }
